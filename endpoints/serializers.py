@@ -3,20 +3,30 @@ from endpoints.models import Authors, Books, BookPages, BoundingBoxes, Predicted
 
 
 class AuthorsSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = Authors
+        fields = '__all__'
 
 
 class BooksSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = Books
+        fields = '__all__'
 
 
 class BookPagesSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = BookPages
+        fields = '__all__'
 
 
 class BoundingBoxesSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = BoundingBoxes
+        fields = '__all__'
 
 
 class PredictedLabelsSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = PredictedLabels
+        fields = '__all__'
