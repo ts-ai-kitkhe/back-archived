@@ -43,3 +43,22 @@ class BoundingBoxesViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, vie
 class PredictedLabelsViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = PredictedLabelsSerializer
     queryset = PredictedLabels.objects.all()    
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+class BooksList(APIView):
+
+    def get(self, request):
+        books = Books.objects.all()
+        serializer = BooksSerializer(books, many=True)
+        return Response(serializer.data)
+
+
+class AddBook(APIView):
+
+    def post(self, request):
+        print(request.data)
+        return Response("200 OKEIO", status=status.HTTP_200_OK)
