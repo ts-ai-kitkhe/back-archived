@@ -1,3 +1,4 @@
+from email.mime import image
 from django.shortcuts import render
 
 # Create your views here.
@@ -61,4 +62,21 @@ class AddBook(APIView):
 
     def post(self, request):
         print(request.data)
-        return Response("200 OKEIO", status=status.HTTP_200_OK)
+        author = request.data.get("author")
+        title = request.data.get("title")
+
+        if Authors.objects.filter(full_name=author).exists():
+            au = Authors.objects.get(full_name=author)
+        else:
+            au = Authors(full_name=author)
+            au.save()
+        print(au.id)
+
+        if not Books.objects.filter(title=title, author_id=au.id).exists():
+            b = Books(title=title, image_url=request.data.get("image_url"), 
+                        author_id=au)
+            b.save()
+            return Response(f"Book \"{title}\" by {author} added successfully", 
+                            status=status.HTTP_201_CREATED)
+        else:   
+            return Response(f"Book \"{title}\" by {author} already exists", status=status.HTTP_226_IM_USED)
