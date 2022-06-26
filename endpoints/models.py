@@ -13,12 +13,17 @@ class Books(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self) -> str:
+        return self.title
 
 class Authors(models.Model):
     # id, full_name
     full_name = models.CharField(max_length=128, db_column='full_name')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return self.full_name
 
 
 class BookPages(models.Model):
@@ -35,6 +40,9 @@ class BookPages(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self) -> str:
+        return str(self.page_url)
+
 
 class BoundingBoxes(models.Model):
     # id, page_id, bounding_box
@@ -42,6 +50,10 @@ class BoundingBoxes(models.Model):
     bounding_box = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        import json
+        return json.dumps(self.bounding_box)
 
 
 class PredictedLabels(models.Model):
@@ -51,3 +63,6 @@ class PredictedLabels(models.Model):
     confidence = models.FloatField(db_column='confidence')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return self.label
