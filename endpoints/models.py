@@ -5,6 +5,16 @@ from django.db import models
 
 # DB objects : books, authors, Book Pages, Bounding boxes, predicted labels
 
+class Authors(models.Model):
+    # id, full_name
+    full_name = models.CharField(max_length=128, db_column='full_name')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return self.full_name
+
+
 class Books(models.Model):
     # id, book name, author id
     title = models.CharField(max_length=128, db_column='title')
@@ -15,15 +25,6 @@ class Books(models.Model):
 
     def __str__(self) -> str:
         return self.title
-
-class Authors(models.Model):
-    # id, full_name
-    full_name = models.CharField(max_length=128, db_column='full_name')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self) -> str:
-        return self.full_name
 
 
 class BookPages(models.Model):
